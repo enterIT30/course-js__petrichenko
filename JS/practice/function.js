@@ -253,3 +253,108 @@ function getCoupeNumber(num) {
 }
 
 console.log(getCoupeNumber(25.5));
+
+// 3 ==================================================================================
+
+function getTimeFromMinutes(min) {
+
+  if (typeof(min) !== 'number' || min < 0 ||  !Number.isInteger(min)) {
+    return 'Ошибка, проверьте данные';
+  }
+
+  let hours = Math.trunc(min / 60);
+  let minutes = min % 60;
+
+  let hourWord;
+  let minuteWord;
+
+  if (hours === 2 || hours === 3 || hours === 4 || hours === 22 || hours === 23 || hours === 24) {
+    hourWord = 'часа';
+  } else if (hours === 1 || hours === 21) {
+    hourWord = 'час';
+  } else {
+    hourWord = 'часов';
+  }
+
+  // можно не прописывать условия для какой-нибудь формы (минут), а присвоить по умолчанию или поместить в else
+
+  if (minutes === 0 || minutes >= 5 <= 20 || minutes >= 25 <= 30 || minutes >= 35 <= 40 || minutes === 50 ||
+    minutes >= 45 <= 50 || minutes >= 55 <= 59) {
+    minuteWord = 'минут';
+  } else if (minutes >= 2 && minutes <= 4 || minutes >= 22 && minutes <= 24 || minutes >= 32 && minutes <= 34 ||
+    minutes >= 42 && minutes <= 44 || minutes >= 52 && minutes <= 54) {
+    minuteWord = 'минуты';
+  } else if (minutes === 1 || minutes === 21 || minutes === 31 || minutes === 41 || minutes === 51) {
+    minuteWord = 'минутa';
+  }
+
+  return `Это ${hours} ${hourWord} и ${minutes} ${minuteWord}`;
+}
+
+console.log(getTimeFromMinutes(250));
+
+// ВАРИАНТ ЛЕКТОРА ==================================================================================
+
+function getTimeFromMinutes(minutesTotal) {
+  if (typeof(minutesTotal) !== 'number' || minutesTotal < 0 || !Number.isInteger(minutesTotal)) {
+      return "Ошибка, проверьте данные";
+  }
+
+  const hours = Math.floor(minutesTotal / 60);
+  const minutes = minutesTotal % 60;
+
+  let hoursStr = '';
+
+  switch (hours) {
+      case 0: 
+          hoursStr = 'часов';
+          break;
+      case 1:
+          hoursStr = 'час';
+          break;
+      case 2:
+      case 3:
+      case 4:
+          hoursStr = 'часа';
+          break;
+      default:
+          hoursStr = 'часов';
+  }
+
+  return `Это ${hours} ${hoursStr} и ${minutes} минут`;
+}
+
+getTimeFromMinutes(180);
+
+// 4 ==================================================================================
+
+function findMaxNumber(ind1, ind2, ind3, ind4) {
+  if (typeof(ind1) === 'number' && typeof(ind2) === 'number' &&
+      typeof(ind3) === 'number' && typeof(ind4) === 'number') {
+        return Math.max(ind1, ind2, ind3, ind4);
+      } else {
+        return 0;
+      }
+}
+
+console.log(findMaxNumber(69, 123, 0, '666'));
+
+// ВАРИАНТ ЛЕКТОРА ==================================================================================
+
+function findMaxNumber(a, b ,c, d) {
+  // Самое простое - это использовать Math.max :)
+  // А оптимизировать такую проверку мы научимся совсем скоро
+  if (typeof(a) !== 'number' ||
+      typeof(b) !== 'number' ||
+      typeof(c) !== 'number' ||
+      typeof(d) !== 'number') {
+      return 0;
+  } else {
+      return Math.max(a, b ,c, d);
+  }
+}
+
+findMaxNumber(1, 5, 6.6, 10.5);
+
+// 5 ==================================================================================
+
