@@ -358,3 +358,56 @@ findMaxNumber(1, 5, 6.6, 10.5);
 
 // 5 ==================================================================================
 
+function fib(num) {
+  
+  if (typeof(num) !== 'number' || num <= 0 || !Number.isInteger(num)) {
+    return '';
+  } else if (num === 1) {
+    return '0';
+  } else if (num === 2) {
+    return '0 1';
+  } else {
+
+    let fibo = [0, 1];
+
+    for (let i = 1; i < num - 1; i++) {
+
+      let fiboNumberNext = fibo[i - 1] + fibo[i];
+      fibo[1 + i] = fiboNumberNext;
+    }
+    return fibo.join(' ');
+  }
+
+
+}
+/* 0 1 1 2 3 5 8  */
+console.log(fib(7));
+
+// ВАРИАНТ ЛЕКТОРА ==================================================================================
+
+function fib(num) {
+  if (typeof(num) !== 'number' || num <= 0 || !Number.isInteger(num)) {
+      return "";
+  }
+
+  let result = '';
+  let first = 0;
+  let second = 1;
+
+  for (let i = 0; i < num; i++) {
+      if (i + 1 === num) {
+          result += `${first}`;
+          // Без пробела в конце
+      } else {
+          result += `${first} `;
+      }
+
+      let third = first + second;
+      first = second;
+      second = third;
+  }
+
+  return result;
+}
+
+console.log(fib(5));
