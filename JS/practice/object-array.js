@@ -194,7 +194,7 @@ function availableCurr(arr, missingCurr) {
     return `Нет доступных валют`;
   } else {
     let result = 'Доступные валюты:\n';
-    
+
     for (let value of arr) {
       if (value !== missingCurr) {
         result += (value + '\n');
@@ -235,3 +235,4 @@ function availableCurr(arr, missingCurr) {
 }
 
 console.log(availableCurr([...baseCurrencies, ...additionalCurrencies], 'CNY'));
+
