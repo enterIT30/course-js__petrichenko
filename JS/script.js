@@ -1,26 +1,27 @@
 'use strict';
-let numberOfFilms;
+
 const personalMovieDB = {
+  count: 0,
   movies: {},
   actors: {},
   genres: [],
   privat: false,
-  count() {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', 4);
+  start() {
+    personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', 4);
 
-    while (numberOfFilms == '' || numberOfFilms === null || isNaN(numberOfFilms)) {
-      numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', 4);
+    while (personalMovieDB.count == '' || personalMovieDB.count === null || isNaN(personalMovieDB.count)) {
+      personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', 4);
     }
 
-    console.log(numberOfFilms);
+    //console.log(personalMovieDB.count);
   },
 
   detectPersonalLevel() {
-    if (numberOfFilms < 10) {
+    if (personalMovieDB.count < 10) {
       alert('Просмотренно довольно мало фильмов');
-    } else if (numberOfFilms >= 10 && numberOfFilms <= 30) {
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count <= 30) {
       alert('Вы классический зритель');
-    } else if (numberOfFilms > 30) {
+    } else if (personalMovieDB.count > 30) {
       alert('Вы киноман');
     } else {
       alert('Произошла ошибка');
@@ -52,32 +53,52 @@ const personalMovieDB = {
 
   writeYourGenger() {
     for (let i = 1; i <= 3; i++) {
-      personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+      let genre = prompt(`Ваш любимый жанр под номером ${i}`);
+
       if (personalMovieDB.genres[i - 1] === null || personalMovieDB.genres[i - 1] === '' ) {
         i--;
+      } else {
+        personalMovieDB.genres[i - 1] = genre;
       }
     }
     personalMovieDB.genres.forEach((item, index) => {
         console.log(`Любимый жанр ${index + 1} - это ${item}`);
     });
+
+    /* Вариант с одним вопросом
+    for (let i = 1; i < 2; i++) {
+      let genre = prompt(`Введите ваши любимые жанры через запятую`).toLowerCase();
+
+      if (personalMovieDB.genres[i - 1] === null || personalMovieDB.genres[i - 1] === '' ) {
+        i--;
+      } else {
+        personalMovieDB.genres = genre.split(', ');
+        personalMovieDB.genres.sort(); // сортировка по алфавиту
+        console.log(personalMovieDB.genres);
+      }
+    }
+    personalMovieDB.genres.forEach((item, index) => {
+        console.log(`Любимый жанр ${index + 1} - это ${item}`);
+    }); */
   },
 
   toggleVisibleMyDB() {
-    if (personalMovieDB.privat === false) {
-      personalMovieDB.privat = true;
-    } else if (personalMovieDB.privat === true) {
+    if (personalMovieDB.privat) { //можно не указывать === false или === true, но снача условия на true
       personalMovieDB.privat = false;
+      console.log(personalMovieDB.privat);
+    } else {
+      personalMovieDB.privat = true;
+      console.log(personalMovieDB.privat);
     }
   },
 };
 
-personalMovieDB.count();
-personalMovieDB.detectPersonalLevel();
-personalMovieDB.rememberMyFilms();
-
+//personalMovieDB.start();
+//personalMovieDB.rememberMyFilms();
+//personalMovieDB.detectPersonalLevel();
 
 personalMovieDB.writeYourGenger();
-personalMovieDB.showMyDB(personalMovieDB.privat);
+//personalMovieDB.showMyDB(personalMovieDB.privat);
 
 personalMovieDB.toggleVisibleMyDB();
 
