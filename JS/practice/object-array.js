@@ -330,3 +330,66 @@ function isBudgetEnough(data) {
 
 console.log(isBudgetEnough(shoppingMallData));
 
+// 9 ==================================================================================
+
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Taesi'];
+
+function sortStudentsByGroups(arr) {
+  arr.sort();
+
+  let commandsOne = [];
+  let commandsTwo = [];
+  let commandsThree = [];
+  let rest = [];
+  
+
+  for (let i = 0; i < arr.length; i++) {
+    if (i < 3) {
+      commandsOne.push(arr[i]);
+    } else if (i < 6) {
+      commandsTwo.push(arr[i]);
+    } else if (i < 9) {
+      commandsThree.push(arr[i]);
+    } else {
+      rest.push(arr[i]);
+    }
+  }
+
+  let result;
+
+  if (rest.length === 0) {
+    result = '-';
+  } else if (rest.length > 0) {
+    result = rest.join(', ');
+  }
+
+  return [commandsOne, commandsTwo, commandsThree, `Оставшиеся студенты: ${result}`];
+
+}
+
+console.log(sortStudentsByGroups(students));
+
+
+// ВАРИАНТ ЛЕКТОРА ==================================================================================
+
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam', 'Bernard', 'Takesi', 'Sam'];
+
+function sortStudentsByGroups(arr) {
+    arr.sort();
+    const a = [], b = [], c = [], rest = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        if (i < 3) {
+            a.push(arr[i]);
+        } else if (i < 6) {
+            b.push(arr[i]);
+        } else if (i < 9) {
+            c.push(arr[i]);
+        } else {
+            rest.push(arr[i]);
+        }
+    }
+    return [a,b,c, `Оставшиеся студенты: ${rest.length === 0 ? '-' : rest.join(', ')}`]
+}
+
+console.log(sortStudentsByGroups(students));
