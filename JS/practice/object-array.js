@@ -236,3 +236,97 @@ function availableCurr(arr, missingCurr) {
 
 console.log(availableCurr([...baseCurrencies, ...additionalCurrencies], 'CNY'));
 
+// 8 ==================================================================================
+
+const shoppingMallData = {
+  shops: [
+      {
+          width: 10,
+          length: 5
+      },
+      {
+          width: 15,
+          length: 7
+      },
+      {
+          width: 20,
+          length: 3
+      },
+      {
+          width: 8,
+          length: 10
+      }
+  ],
+  height: 5,
+  moneyPer1m3: 30,
+  budget: 50000
+};
+
+//console.log(shoppingMallData.shops[0]);
+
+function isBudgetEnough(data) {
+  let entireArea = null;
+
+  data.shops.forEach(shop => {
+    let { width, length } = shop;
+
+    entireArea += width * length;
+  });
+
+  let entireVolume = entireArea * data.height;
+
+
+  if ( (entireVolume * data.moneyPer1m3) < data.budget) {
+    return `Бюджета достаточно`;
+  } else {
+    return `Бюджета недостаточно`;
+  }
+}
+
+console.log(isBudgetEnough(shoppingMallData));
+
+// ВАРИАНТ ЛЕКТОРА ==================================================================================
+
+const shoppingMallData = {
+  shops: [
+      {
+          width: 10,
+          length: 5
+      },
+      {
+          width: 15,
+          length: 7
+      },
+      {
+          width: 20,
+          length: 5
+      },
+      {
+          width: 8,
+          length: 10
+      }
+  ],
+  height: 5,
+  moneyPer1m3: 30,
+  budget: 50000
+};
+
+function isBudgetEnough(data) {
+  let square = 0;
+  let volume = 0;
+
+  data.shops.forEach(shop => {
+      square += shop.width * shop.length;
+  });
+
+  volume = data.height * square;
+
+  if (data.budget - (volume * data.moneyPer1m3) >= 0) {
+      return 'Бюджета достаточно';
+  } else {
+      return 'Бюджета недостаточно';
+  }
+}
+
+console.log(isBudgetEnough(shoppingMallData));
+
