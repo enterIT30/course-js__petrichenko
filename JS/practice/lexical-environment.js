@@ -16,3 +16,4 @@ const increment = createCounterer();
 const c1 = increment();
 const c2 = increment();
 const c3 = increment();
+
