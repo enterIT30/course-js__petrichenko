@@ -1,26 +1,13 @@
-/* Задания на урок:
-
-1) Удалить все рекламные блоки со страницы (правая часть сайта)
-
-2) Изменить жанр фильма, поменять "комедия" на "драма"
-
-3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
-Реализовать только при помощи JS
-
-4) Список фильмов на странице сформировать на основании данных из этого JS файла.
-Отсортировать их по алфавиту
-
-5) Добавить нумерацию выведенных фильмов */
-
 'use strict';
 
 const movieDB = {
     movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
+        "Скотт Пилигрим против...",
         "Одержимость",
-        "Скотт Пилигрим против..."
+        "Лига справедливости",
+        "Логан",
+        "Ла-ла лэнд",
+
     ]
 };
 
@@ -38,15 +25,88 @@ promo.style.backgroundImage = 'url("img/bg.jpg")';
 
 markList.innerHTML = ''; // очистили от вложенных HTML-элементов
 
-movieDB.movies.sort();
 
-movieDB.movies.forEach((elem, index) => {
-  markList.innerHTML += `
-    <li class="promo__interactive-item">${index + 1}. ${elem}
-      <div class="delete"></div>
-    </li>
-  `;
+function createList() {
+  movieDB.movies.sort();
+
+  movieDB.movies.forEach((elem, index) => {
+    markList.innerHTML += `
+      <li class="promo__interactive-item">${index + 1}. ${elem}
+        <div class="delete"></div>
+      </li>
+    `;
+  });
+}
+
+createList();
+
+
+//==================================================================================
+
+
+const form = document.querySelector('.add');
+//const input = form.querySelector('.adding__input');
+const input = form.querySelector('[type="text"]');
+const checkbox = form.querySelector('[type="checkbox"]');
+const deleteIcons = markList.querySelectorAll('.delete');
+
+
+
+
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    if (checkbox.checked) {
+      console.log('Добавляем любимый фильм');
+    }
+
+    if (input.value.length <= 21 && input.value.length > 0) {
+      movieDB.movies[movieDB.movies.length] = input.value;
+      //createList();
+      markList.innerHTML += `
+      <li class="promo__interactive-item">${movieDB.movies.length}. ${input.value}
+        <div class="delete"></div>
+      </li>
+      `;
+    } else if (input.value.length > 21) {
+      markList.innerHTML += `
+      <li class="promo__interactive-item">${movieDB.movies.length}. ${input.value.slice(0, 21)}...
+        <div class="delete"></div>
+      </li>
+      `;
+    } else if (input.value == '' || input.value.length <= 0) {
+      alert('Введи название фильма, долбаёб');
+    }
+
+    console.log(deleteIcons);
 });
+
+
+
+
+console.log(deleteIcons);
+
+deleteIcons.forEach((icon, index) => {
+  icon.addEventListener('click', e => {
+    movieDB.movies.splice(index, 1);
+
+    let films = markList.querySelectorAll('.promo__interactive-item');
+    films[index].remove();
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 1 ==================================================================================
