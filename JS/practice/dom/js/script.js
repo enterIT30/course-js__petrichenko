@@ -23,22 +23,33 @@ adv.forEach(item => {
 genre.textContent = 'драма';
 promo.style.backgroundImage = 'url("img/bg.jpg")';
 
-markList.innerHTML = ''; // очистили от вложенных HTML-элементов
+
 
 
 function createList() {
+  markList.innerHTML = ''; // очистили от вложенных HTML-элементов
   movieDB.movies.sort();
 
   movieDB.movies.forEach((elem, index) => {
-    markList.innerHTML += `
+
+    if (elem.length <= 21 && elem.length > 0) {
+      markList.innerHTML += `
       <li class="promo__interactive-item">${index + 1}. ${elem}
         <div class="delete"></div>
       </li>
-    `;
+      `;
+    } else if (elem.length > 21) {
+      markList.innerHTML += `
+      <li class="promo__interactive-item">${index + 1}. ${elem.slice(0, 21)}...
+        <div class="delete"></div>
+      </li>
+      `;
+    }
   });
 }
 
 createList();
+console.log(markList);
 
 
 //==================================================================================
@@ -48,9 +59,8 @@ const form = document.querySelector('.add');
 //const input = form.querySelector('.adding__input');
 const input = form.querySelector('[type="text"]');
 const checkbox = form.querySelector('[type="checkbox"]');
-const deleteIcons = markList.querySelectorAll('.delete');
 
-
+let deleteIcons = markList.querySelectorAll('.delete');
 
 
 
@@ -63,99 +73,52 @@ form.addEventListener('submit', function(e) {
 
     if (input.value.length <= 21 && input.value.length > 0) {
       movieDB.movies[movieDB.movies.length] = input.value;
-      //createList();
-      markList.innerHTML += `
-      <li class="promo__interactive-item">${movieDB.movies.length}. ${input.value}
-        <div class="delete"></div>
-      </li>
-      `;
+      createList();
     } else if (input.value.length > 21) {
-      markList.innerHTML += `
-      <li class="promo__interactive-item">${movieDB.movies.length}. ${input.value.slice(0, 21)}...
-        <div class="delete"></div>
-      </li>
-      `;
+      movieDB.movies[movieDB.movies.length] = input.value;
+      createList();
     } else if (input.value == '' || input.value.length <= 0) {
       alert('Введи название фильма, долбаёб');
     }
+    console.log(movieDB.movies);
 
+    deleteIcons = markList.querySelectorAll('.delete');
     console.log(deleteIcons);
 });
 
 
 
 
+console.log(movieDB.movies);
 console.log(deleteIcons);
 
+
+markList.addEventListener('click', function(e) {
+  let targetItem = e.target;
+
+  if (targetItem.closest('.delete')) {
+    targetItem.parentElement.remove();
+    console.dir(targetItem);
+    
+  }
+});
+
+/*
 deleteIcons.forEach((icon, index) => {
   icon.addEventListener('click', e => {
+
+    console.log('hi');
+
     movieDB.movies.splice(index, 1);
+    deleteIcons[index].remove();
 
     let films = markList.querySelectorAll('.promo__interactive-item');
     films[index].remove();
+
+    console.log(movieDB.movies);
+    console.log(deleteIcons);
+
   });
-});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 1 ==================================================================================
-
-// document.querySelector('.promo__adv').remove(); не совем правильно так как я удалил всю боковю панель
-
-// 2 ==================================================================================
-
-/* const genre = document.querySelector('.promo__genre');
-genre.textContent = 'драма'; */
-
-// лучше создать переменную promo и через нее найти genre
-
-// 3 ==================================================================================
-
-/*
-const promo = document.querySelector('.promo__bg');
-promo.style.backgroundImage = 'url(img/bg.jpg)';
-*/
-
-/* Вариант с cssText
-promo.style.cssText = `
-  background-image: url(img/bg.jpg)`;
-*/
-
-
-// 5 ==================================================================================
-
-/*
-const markList = document.querySelector('.promo__interactive-list');
-const numList = document.createElement('ol');
-
-markList.replaceWith(numList);
-numList.classList.add('promo__interactive-list'); */
-
-/* Хотел добавить нумерацию за счет смены ul на ol, но встала проблема со стилсями и было 
-принято решение создать нумерацию при помощи forEach */
-
-// 4 ==================================================================================
-
-/*
-const moviesSort = movieDB.movies.sort(); // лектор не помещал сорт в переменную
-
-moviesSort.forEach((elem, index) => {
-  const li = document.createElement('li');
-  li.classList.add('promo__interactive-item');
-  li.textContent = `${index + 1}. ${elem}`;
-  numList.append(li);
-});
-
-*/
+}); */
 
