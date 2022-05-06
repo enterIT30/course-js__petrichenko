@@ -119,6 +119,14 @@ window.addEventListener('DOMContentLoaded', ()=> {
     });
   });
 
+  function openModal() {
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+
+    clearInterval(modalTimerId);
+  }
+
   function closeModal() {
     modal.classList.remove('show');
     modal.classList.add('hide');
@@ -140,4 +148,20 @@ window.addEventListener('DOMContentLoaded', ()=> {
       closeModal();
     }
   });
+
+  const modalTimerId = setTimeout(openModal, 10000);
+
+  function showModalByScroll() {
+    if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 1) {
+      /**
+       *нужно отследить когда пользователь прокрутил до конца страницы
+       *сколько сверху прокрутил по Y + высота (клиента) видимой части >= полной высоты элемента
+       * можно добавить минус один для перестраховки
+       * */
+      openModal();
+      window.removeEventListener('scroll', showModalByScroll);
+    }
+  }
+
+  window.addEventListener('scroll', showModalByScroll);
 });
