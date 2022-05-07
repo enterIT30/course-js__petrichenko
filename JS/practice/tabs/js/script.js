@@ -164,4 +164,48 @@ window.addEventListener('DOMContentLoaded', ()=> {
   }
 
   window.addEventListener('scroll', showModalByScroll);
+
+  // Cards
+
+  class Cards {
+    constructor(wrapper, mainClass, picPath, menuName, descrMenu, priceMenu) {
+      this.wrapper = wrapper;
+      this.main = mainClass;
+      this.path = picPath;
+      this.menu = menuName;
+      this.price = priceMenu;
+      this.descr = descrMenu;
+
+
+
+    }
+    createMainEl() {
+      const wrapperCards = document.querySelector(this.wrapper);
+      const newCard = document.createElement('div');
+      newCard.classList.add(this.main);
+      wrapperCards.append(newCard);
+
+      newCard.innerHTML = `
+        <div class="${this.main}">
+          <img src="img/tabs/${this.path}.jpg" alt="vegy">
+          <h3 class="${this.main}-subtitle">Меню "${this.menu}"</h3>
+          <div class="${this.main}-descr">Меню "${this.menu}" - ${this.descr}</div>
+          <div class="${this.main}-divider"></div>
+          <div class="${this.main}-price">
+            <div class="${this.main}-cost">Цена:</div>
+            <div class="${this.main}-total"><span>${this.price}</span> грн/день</div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+
+
+  let descrMenu = 'это новый подход к экономии и выживанию. Неповторимый тандем хлеба по уцененке с просроченной колбасой, дают обширный букет вкусовых отенков. А самое главное, что данное меню зарекомендовало себя как бюджетный вариант перекуса, который снабжает необходимым количеством калорий макроэлементов на весь день. <br> ЕСТЬ ПРЕМИУМ ВАРИАНТ С ДОБАВЛЕНИЕМ МАЙОНЕ!';
+
+  const newCard = new Cards('.menu__field .container', 'menu__item', 'student', 'Бедный студент', descrMenu, 49);
+
+  newCard.createMainEl();
+
 });
