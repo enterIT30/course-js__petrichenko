@@ -167,7 +167,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
 
   // Cards
 
-  class Cards {
+  class Card {
     constructor(wrapper, mainClass, picPath, menuName, descrMenu, priceMenu) {
       this.wrapper = wrapper;
       this.main = mainClass;
@@ -175,9 +175,6 @@ window.addEventListener('DOMContentLoaded', ()=> {
       this.menu = menuName;
       this.price = priceMenu;
       this.descr = descrMenu;
-
-
-
     }
     createMainEl() {
       const wrapperCards = document.querySelector(this.wrapper);
@@ -187,7 +184,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
 
       newCard.innerHTML = `
         <div class="${this.main}">
-          <img src="img/tabs/${this.path}.jpg" alt="vegy">
+          <img src="img/tabs/${this.path}.jpg" alt="${this.path}">
           <h3 class="${this.main}-subtitle">Меню "${this.menu}"</h3>
           <div class="${this.main}-descr">Меню "${this.menu}" - ${this.descr}</div>
           <div class="${this.main}-divider"></div>
@@ -201,11 +198,66 @@ window.addEventListener('DOMContentLoaded', ()=> {
   }
 
 
-
   let descrMenu = 'это новый подход к экономии и выживанию. Неповторимый тандем хлеба по уцененке с просроченной колбасой, дают обширный букет вкусовых отенков. А самое главное, что данное меню зарекомендовало себя как бюджетный вариант перекуса, который снабжает необходимым количеством калорий макроэлементов на весь день. <br> ЕСТЬ ПРЕМИУМ ВАРИАНТ С ДОБАВЛЕНИЕМ МАЙОНЕ!';
 
-  const newCard = new Cards('.menu__field .container', 'menu__item', 'student', 'Бедный студент', descrMenu, 49);
+  const newCard = new Card('.menu__field .container', 'menu__item', 'student', 'Бедный студент', descrMenu, 49);
 
   newCard.createMainEl();
+
+  // Lecturer's version
+
+  class MenuCard {
+    constructor(src, alt, title, descr, price, parentSelector) {
+      this.src = src;
+      this.alt = alt;
+      this.title = title;
+      this.descr = descr;
+      this.price = price;
+      this.parent = document.querySelector(parentSelector);
+      this.transfer = 27;
+      this.changeToUAH();
+    }
+
+    changeToUAH() {
+      this.price = this.price * this.transfer;
+    }
+
+    render() {
+      const element = document.createElement('div');
+
+      element.innerHTML = `
+      <div class="menu__item">
+        <img src=${this.src} alt=${this.alt}>
+        <h3 class="menu__item-subtitle">${this.title}</h3>
+        <div class="menu__item-descr">${this.descr}</div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+            <div class="menu__item-cost">Цена:</div>
+            <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+        </div>
+      </div>
+      `;
+      this.parent.append(element);
+    }
+  }
+
+  /* обычный вызов
+  const div = new MenuCard();
+  div.render();
+  */
+
+
+  /* сокращенный
+  new MenuCard().render();
+  */
+
+  new MenuCard(
+    "img/tabs/elite.jpg",
+    "elite",
+    "Меню “Вариант лектора”",
+    'Меню “Вариант лектора” - эта карточка сделанна при помощи классов и это вариант лектора курса. Я же сделал предыдущую карточку, студеннческую. Есть разница в исполнении, но считаю, что суть классов я понял.',
+    9,
+    '.menu .container'
+  ).render();
 
 });
