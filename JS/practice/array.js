@@ -93,3 +93,60 @@ function checkFilms(arr) {
 // Максимально коротко, но еще читаемо:
 
 // const checkFilms = (arr) => arr.every(film => film.id || film.id === 0)
+
+//!==================================================================================
+
+const funds = [
+  {amount: -1400},
+  {amount: 2400},
+  {amount: -1000},
+  {amount: 500},
+  {amount: 10400},
+  {amount: -11400}
+];
+
+const getPositiveIncomeAmount = (data) => {
+  let sum = 0;
+  data.map(item => {
+    if (item.amount > 0) {
+      sum += item.amount;
+    }
+  });
+  return sum;
+};
+
+console.log(getPositiveIncomeAmount(funds));
+
+/* Вариант лектора
+const getPositiveIncomeAmount = (data) => {
+    return data.filter(item => item.amount > 0).reduce((acc, curr) => acc + curr.amount, 0)
+}
+
+getPositiveIncomeAmount(funds);
+*/
+
+
+
+//==================================================================================
+
+const getTotalIncomeAmount = (data) => {
+  if (data.some(i => i.amount < 0)) {
+    let sum = 0;
+    data.forEach(item => {
+      sum += item.amount;
+    });
+    return sum;
+  } else {
+    return getPositiveIncomeAmount(data);
+  }
+};
+
+console.log(getTotalIncomeAmount(funds));
+
+
+/*
+const getTotalIncomeAmount = (data) => {
+    return data.some(item => item.amount < 0) ? data.reduce((acc, curr) => acc + curr.amount, 0) : getPositiveIncomeAmount(data);
+}
+*/
+//==================================================================================
