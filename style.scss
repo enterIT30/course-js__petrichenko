@@ -68,18 +68,30 @@ body {
     @media (max-width: 1200px){
       flex: 1 1 100%;
     }
+    @media (max-width: 480px){
+      margin: 0 15px;
+    }
   }
   &__title {
     font-size: 32px;
     margin-bottom: 8px;
+    @media (max-width: 480px){
+      font-size: 28px;
+    }
   }
   &__subtitle {
     font-size: 19px;
     margin-bottom: 16px;
+    @media (max-width: 480px){
+      font-size: 16px;
+    }
   }
 
   &__autor span {
     color: #cec0fc;
+    @media (max-width: 480px){
+      font-size: 14px;
+    }
   }
 
   &__left {
@@ -131,11 +143,15 @@ body {
 .practical-work {
   flex: 0 1 700px;
   margin-right: auto;
-  padding: 24px 16px 16px;
+  padding: 24px 16px 16px 0;
   margin: 0 48px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   @media (max-width: 1200px){
     flex: 1 1 100%;
+  }
+  @media (max-width: 480px){
+    margin: 0 15px;
+    padding-right: 0;
   }
   &__title {
     font-size: 24px;
@@ -145,6 +161,9 @@ body {
   &__list {
     list-style: none;
     font-size: 16px;
+    @media (max-width: 760px){
+      padding: 0 16px;
+    }
     &-item {
       margin-bottom: 10px;
     }
@@ -176,6 +195,9 @@ body {
       margin-bottom: 5px;
       position: relative;
       padding-left: 40px;
+      @media (max-width: 480px){
+        padding-left: 20px;
+      }
 
       &::before{
         content:'';
@@ -186,11 +208,13 @@ body {
         top: 1px;
         left: 20px;
         background-size: contain;
+        @media (max-width: 480px){
+          left: 0;
+        }
       }
       &:last-child{
         margin-bottom: 10px;
       }
     }
-
   }
 }

@@ -96,9 +96,21 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .course__block {
+    margin: 0 15px;
+  }
+}
+
 .course__title {
   font-size: 32px;
   margin-bottom: 8px;
+}
+
+@media (max-width: 480px) {
+  .course__title {
+    font-size: 28px;
+  }
 }
 
 .course__subtitle {
@@ -106,8 +118,20 @@ body {
   margin-bottom: 16px;
 }
 
+@media (max-width: 480px) {
+  .course__subtitle {
+    font-size: 16px;
+  }
+}
+
 .course__autor span {
   color: #cec0fc;
+}
+
+@media (max-width: 480px) {
+  .course__autor span {
+    font-size: 14px;
+  }
 }
 
 .course__left {
@@ -172,7 +196,7 @@ body {
       -ms-flex: 0 1 700px;
           flex: 0 1 700px;
   margin-right: auto;
-  padding: 24px 16px 16px;
+  padding: 24px 16px 16px 0;
   margin: 0 48px;
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
@@ -185,6 +209,13 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .practical-work {
+    margin: 0 15px;
+    padding-right: 0;
+  }
+}
+
 .practical-work__title {
   font-size: 24px;
   font-weight: bold;
@@ -194,6 +225,12 @@ body {
 .practical-work__list {
   list-style: none;
   font-size: 16px;
+}
+
+@media (max-width: 760px) {
+  .practical-work__list {
+    padding: 0 16px;
+  }
 }
 
 .practical-work__list-item {
@@ -234,6 +271,12 @@ body {
   padding-left: 40px;
 }
 
+@media (max-width: 480px) {
+  .practical-work__sublist li {
+    padding-left: 20px;
+  }
+}
+
 .practical-work__sublist li::before {
   content: '';
   background-image: url(../img/checkmark.png);
@@ -243,6 +286,12 @@ body {
   top: 1px;
   left: 20px;
   background-size: contain;
+}
+
+@media (max-width: 480px) {
+  .practical-work__sublist li::before {
+    left: 0;
+  }
 }
 
 .practical-work__sublist li:last-child {
