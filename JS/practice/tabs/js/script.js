@@ -298,11 +298,11 @@ window.addEventListener('DOMContentLoaded', ()=> {
         margin: 0 auto;
       `;
       form.insertAdjacentElement('afterend', statusMessage);
-
+/*
       const request = new XMLHttpRequest();
       request.open('POST', 'server.php');
+*/
 
-      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
       const formData = new FormData(form);
 
       const object = {};
@@ -310,10 +310,25 @@ window.addEventListener('DOMContentLoaded', ()=> {
         object[key] = value;
       });
 
-      const json = JSON.stringify(object);
-
-      request.send(json);
-
+      fetch('server.php', {
+        method: "POST",
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(object)
+      })
+      .then(data => data.text())
+      .then(data => {
+        console.log(data);
+        showThanksModal(message.success);
+        form.reset();
+        statusMessage.remove();
+      }).catch(() => {
+        showThanksModal(message.failure);
+      }).finally(() => {
+        form.reset();
+      });
+/*
       request.addEventListener('load', () => {
         if (request.status === 200) {
           console.log(request.response);
@@ -324,6 +339,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
           showThanksModal(message.failure);
         }
       });
+       */
     });
   }
 
@@ -352,6 +368,19 @@ window.addEventListener('DOMContentLoaded', ()=> {
       closeModal();
     }, 4000);
   }
+
+/* Пример с JSONplaceholder
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: "POST",
+    body: JSON.stringify({name: 'Alex'}),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(json => console.log(json));
+*/
+
 });
 
 
