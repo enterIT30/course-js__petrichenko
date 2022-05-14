@@ -162,7 +162,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
   window.addEventListener('scroll', showModalByScroll);
 
   // Cards
-
+/* 
   class Card {
     constructor(wrapper, mainClass, picPath, menuName, descrMenu, priceMenu) {
       this.wrapper = wrapper;
@@ -197,7 +197,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
   const newCard = new Card('.menu__field .container', 'menu__item', 'student', 'Бедный студент', descrMenu, 49);
 
   newCard.createMainEl();
-
+ */
   // Lecturer's version
 
   class MenuCard {
@@ -251,6 +251,49 @@ window.addEventListener('DOMContentLoaded', ()=> {
   new MenuCard().render();
   */
 
+  const getRecource = async (url) => {
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${url}, status ${res.status}`);
+    }
+
+    return await res.json();
+  };
+
+  getRecource('http://localhost:3000/menu')
+    .then(data => {
+      data.forEach(({ img, altimg, title, descr, price }) => {
+        new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+      });
+    });
+    
+/* 
+  getRecource('http://localhost:3000/menu')
+    .then(data => createCard(data));
+
+  function createCard(data) {
+    data.forEach(({ img, altimg, title, descr, price }) => {
+      const element = document.createElement('div');
+
+      element.classList.add('menu__item');
+
+      element.innerHTML = `
+        <img src=${img} alt=${altimg}>
+        <h3 class="menu__item-subtitle">${title}</h3>
+        <div class="menu__item-descr">${descr}</div>
+        <div class="menu__item-divider"></div>
+        <div class="menu__item-price">
+            <div class="menu__item-cost">Цена:</div>
+            <div class="menu__item-total"><span>${price}</span> грн/день</div>
+        </div>
+      `;
+
+      document.querySelector('menu .container').append(element);
+    });
+  }
+ */
+/* 
   new MenuCard(
     "img/tabs/elite.jpg",
     "elite",
@@ -258,8 +301,8 @@ window.addEventListener('DOMContentLoaded', ()=> {
     'Меню “Вариант лектора” - эта карточка сделанна при помощи классов и это вариант лектора курса. Я же сделал предыдущую карточку, студеннческую. Есть разница в исполнении, но считаю, что суть классов я понял.',
     9,
     '.menu .container',
-/*     'menu__item',
-    'test-class' */
+    'menu__item',
+    'test-class'
   ).render();
 
   new MenuCard(
@@ -272,6 +315,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
     'menu__item',
     'test-class'
   ).render();
+ */
 
 
   // Form (почти ничего не понял)
@@ -284,10 +328,22 @@ window.addEventListener('DOMContentLoaded', ()=> {
   };
 
   forms.forEach(item => {
-    postData(item);
+    bindPostData(item);
   });
 
-  function postData(form) {
+  const postData = async (url, data) => {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: data
+    });
+
+    return await res.json();
+  };
+
+  function bindPostData(form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -305,19 +361,9 @@ window.addEventListener('DOMContentLoaded', ()=> {
 
       const formData = new FormData(form);
 
-      const object = {};
-      formData.forEach(function(value, key) {
-        object[key] = value;
-      });
+      const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-      fetch('server.php', {
-        method: "POST",
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(object)
-      })
-      .then(data => data.text())
+      postData(' http://localhost:3000/requests', json)
       .then(data => {
         console.log(data);
         showThanksModal(message.success);
@@ -384,6 +430,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
   fetch('http://localhost:3000/menu')
     .then(data => data.json())
     .then(res => console.log(res));
+
 });
 
 
