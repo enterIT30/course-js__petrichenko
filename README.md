@@ -2,7 +2,7 @@
 
 Курс состоит из 11 разделов. Старт курса 23.04.2022.
 
-Результат практических работ: https://enterit30.github.io/javaScript-react_course_petrichenko/
+Результат практических работ: https://enterit30.github.io/course-js__petrichenko/
 
 ## 1 раздел - Подготовка к работе (пропустил)
 
