@@ -11,7 +11,6 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: 'SFProDisplay-Bold', sans-serif;
-  height: 100vh;
 }
 
 .header {
@@ -197,7 +196,7 @@ body {
           flex: 0 1 700px;
   margin-right: auto;
   padding: 24px 16px 16px 0;
-  margin: 0 48px;
+  margin: 0 48px 32px;
   border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
